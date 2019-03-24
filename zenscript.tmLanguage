@@ -1,5 +1,7 @@
 {
-	"fileTypes": ["zs"],
+	"fileTypes": [
+	  "zs"
+	],
 	"name": "ZenScript",
 	"patterns": [
 	  {
@@ -131,11 +133,7 @@
 			"comment": "double quote string",
 			"name": "string.quoted.double.zenscript",
 			"contentName": "string.other.zenscript",
-			"begin": "\\\"",
-			"beginCaptures": {
-			  "0": { "name": "punctuation.definition.string.begin" }
-			},
-			"end": "\\\"",
+			"begin": "\\\"","beginCaptures":{"0":{"name":"punctuation.definition.string.begin"}},"end":"\\\"",
 			"endCaptures": {
 			  "0": {
 				"name": "punctuation.definition.string.end"
@@ -166,7 +164,7 @@
 		  {
 			"comment": "items and blocks",
 			"name": "keyword.other.zenscript",
-			"match": "(\\<)\\b(.*?)(:(.*?(:(\\*|\\d+)?)?)?)(\\>)",
+			"match": "(&lt;)\\b(.*?)(:(.*?(:(\\*|\\d+)?)?)?)(&gt;)",
 			"captures": {
 			  "1": {
 				"name": "keyword.control.zenscript"
@@ -269,7 +267,7 @@
 		  {
 			"comment": "as holder keywords",
 			"name": "storage.type.zenscript",
-			"match": "\\b(?<=(as\\s))[a-zA-Z]+\\b"
+			"match": "\\b(?&lt;=(as\\s))[a-zA-Z]+\\b"
 		  },
 		  {
 			"comment": "function keyword",
@@ -293,7 +291,7 @@
 		  {
 			"comment": "math operators",
 			"name": "keyword.operator",
-			"match": "(\\.\\.|\\+=|\\+|-=|-|\\*=|\\*|\\/=|\\/|%=|%|\\|=|\\||\\|\\||&=|&&|&|\\^=|\\^|\\?|:|~=|~|;|\\<=|\\<|\\>=|\\>|==|=|!=|!|\\$)"
+			"match": "(\\.\\.|\\+=|\\+|-=|-|\\*=|\\*|\\/=|\\/|%=|%|\\|=|\\||\\|\\||&=|&&|&|\\^=|\\^|\\?|:|~=|~|;|&lt;=|&lt;|&gt;=|&gt;|==|=|!=|!|\\$)"
 		  }
 		]
 	  }
