@@ -1,300 +1,491 @@
-{
-  "fileTypes": [
-    "zs"
-  ],
-  "name": "ZenScript",
-  "patterns": [
-    {
-      "include": "#code"
-    },
-    {
-      "comment": "numbers",
-      "name": "constant.numeric.zenscript",
-      "match": "\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)([LlFfUuDd]|UL|ul)?\\b"
-    },
-    {
-      "comment": "arrays",
-      "name": "storage.type.object.array.zenscript",
-      "match": "\\b((?:[a-z]\\w*\\.)*[A-Z]+\\w*)(?=\\[)"
-    }
-  ],
-  "repository": {
-    "code": {
-      "patterns": [
-        {
-          "include": "#class"
-        },
-        {
-          "include": "#class-constructor"
-        },
-        {
-          "include": "#functions"
-        },
-        {
-          "include": "#function-call"
-        },
-        {
-          "include": "#dots"
-        },
-        {
-          "include": "#quotes"
-        },
-        {
-          "include": "#brackets"
-        },
-        {
-          "include": "#preprocessors"
-        },
-        {
-          "include": "#comments"
-        },
-        {
-          "include": "#var"
-        },
-        {
-          "include": "#import"
-        },
-        {
-          "include": "#keywords"
-        },
-        {
-          "include": "#constants"
-        },
-        {
-          "include": "#operators"
-        }
-      ]
-    },
-    "class": {
-      "comment": "class",
-      "name": "meta.class.zenscript",
-      "match": "(zenClass)\\s+(\\w+)",
-      "captures": {
-        "1": {
-          "name": "storage.type.zenscript"
-        },
-        "2": {
-          "name": "entity.name.type.class.zenscript"
-        }
-      }
-    },
-    "class-constructor": {
-      "comment": "class constructor",
-      "name": "meta.class.zenscript",
-      "match": "\\b(zenConstructor)\\s*(?=\\()",
-      "captures": {
-        "1": {
-          "name": "entity.name.function.zenscript"
-        }
-      }
-    },
-    "functions": {
-      "comment": "functions",
-      "name": "meta.function.zenscript",
-      "match": "function\\s+([A-Za-z_$][\\w$]*)\\s*(?=\\()",
-      "captures": {
-        "0": {
-          "name": "storage.type.function.zenscript"
-        },
-        "1": {
-          "name": "entity.name.function.zenscript"
-        }
-      }
-    },
-    "function-call": {
-      "comment": "function calls",
-      "name": "meta.function-call.zenscript",
-      "match": "(?!function)([A-Za-z_$][\\w$]*)\\s*(?=\\()",
-      "captures": {
-        "1": {
-          "name": "entity.name.function.zenscript"
-        }
-      }
-    },
-    "dots": {
-      "comment": "dots",
-      "name": "plain.text.zenscript",
-      "match": "\\b(\\w+)(\\.)(\\w+)((\\.)(\\w+))*",
-      "captures": {
-        "1": {
-          "name": "storage.type.zenscript"
-        },
-        "2": {
-          "name": "keyword.control.zenscript"
-        },
-        "5": {
-          "name": "keyword.control.zenscript"
-        }
-      }
-    },
-    "quotes": {
-      "patterns": [
-        {
-          "comment": "double quote string",
-          "name": "string.quoted.double.zenscript",
-          "contentName": "string.other.zenscript",
-          "begin": "\\\"","beginCaptures":{"0":{"name":"punctuation.definition.string.begin"}},"end":"\\\"",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.string.end"
-            }
-          }
-        },
-        {
-          "comment": "single quote string",
-          "name": "string.quoted.single.zenscript",
-          "contentName": "string.other.zenscript",
-          "begin": "\\'",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.string.begin"
-            }
-          },
-          "end": "\\'",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.string.end"
-            }
-          }
-        }
-      ]
-    },
-    "brackets": {
-      "patterns": [
-        {
-          "comment": "items and blocks",
-          "name": "keyword.other.zenscript",
-          "match": "(<)\\b(.*?)(:(.*?(:(\\*|\\d+)?)?)?)(>)",
-          "captures": {
-            "1": {
-              "name": "keyword.control.zenscript"
-            },
-            "2": {
-              "name": "keyword.other.zenscript"
-            },
-            "3": {
-              "name": "keyword.control.zenscript"
-            },
-            "4": {
-              "name": "variable.other.zenscript"
-            },
-            "5": {
-              "name": "keyword.control.zenscript"
-            },
-            "6": {
-              "name": "constant.numeric.zenscript"
-            },
-            "7": {
-              "name": "keyword.control.zenscript"
-            }
-          }
-        }
-      ]
-    },
-    "comments": {
-      "patterns": [
-        {
-          "comment": "inline comments",
-          "name": "comment.line.number-sign",
-          "match": "\\s*((#|//).*$\\n?)"
-        },
-        {
-          "comment": "block comments",
-          "name": "comment.block",
-          "begin": "\\/\\*",
-          "beginCaptures": {
-            "0": {
-              "name": "comment.block"
-            }
-          },
-          "end": "\\*\\/",
-          "endCaptures": {
-            "0": {
-              "name": "comment.block"
-            }
-          }
-        }
-      ]
-    },
-    "preprocessors": {
-      "name": "constant.numeric.zenscript",
-      "match": "^(\\s*)(#)(debug|ignoreBracketErrors|norun|loader|priority|ikwid|profile|zslint|modloaded)",
-      "captures": {
-        "1": {
-          "name": "keyword.control.zenscript"
-        },
-        "2": {
-          "name": "keyword.control.zenscript"
-        },
-        "3": {
-          "name": "variable.language.zenscript"
-        }
-      }
-    },
-    "var": {
-      "comment": "var",
-      "match": "\\b(var|val|static|global)\\b",
-      "name": "storage.type"
-    },
-    "import": {
-      "comment": "package import",
-      "name": "meta.import.zenscript",
-      "begin": "\\b(import)\\b\\s*",
-      "beginCaptures": {
-        "1": {
-          "name": "keyword.other.import.zenscript"
-        }
-      },
-      "end": "\\s*(;)",
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.terminator.zenscript"
-        }
-      }
-    },
-    "keywords": {
-      "patterns": [
-        {
-          "comment": "control keywords",
-          "name": "keyword.control.zenscript",
-          "match": "\\b(in|has|void|as|version|for|return|while|break|instanceof)\\b"
-        },
-        {
-          "comment": "storage keywords",
-          "name": "storage.type.zenscript",
-          "match": "\\b(any|bool|byte|short|int|long|float|double|string)\\b"
-        },
-        {
-          "comment": "as holder keywords",
-          "name": "storage.type.zenscript",
-          "match": "\\b(?<=(as\\s))[a-zA-Z]+\\b"
-        },
-        {
-          "comment": "function keyword",
-          "name": "storage.type.function.zenscript",
-          "match": "\\b(function)\\b"
-        },
-        {
-          "comment": "statement keywords",
-          "name": "keyword.control.conditional.zenscript",
-          "match": "\\b(if|else)\\b"
-        }
-      ]
-    },
-    "constants": {
-      "comment": "constants (true, false, null)",
-      "name": "constant.language.zenscript",
-      "match": "\\b(true|false|null)\\b"
-    },
-    "operators": {
-      "patterns": [
-        {
-          "comment": "math operators",
-          "name": "keyword.operator",
-          "match": "(\\.\\.|\\+=|\\+|-=|-|\\*=|\\*|\\/=|\\/|%=|%|\\|=|\\||\\|\\||&=|&&|&|\\^=|\\^|\\?|:|~=|~|;|<=|<|>=|>|==|=|!=|!|\\$)"
-        }
-      ]
-    }
-  },
-  "scopeName": "source.zenscript"
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>zs</string>
+	</array>
+	<key>name</key>
+	<string>ZenScript</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>include</key>
+			<string>#code</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>numbers</string>
+			<key>match</key>
+			<string>\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)([LlFfUuDd]|UL|ul)?\b</string>
+			<key>name</key>
+			<string>constant.numeric.zenscript</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>arrays</string>
+			<key>match</key>
+			<string>\b((?:[a-z]\w*\.)*[A-Z]+\w*)(?=\[)</string>
+			<key>name</key>
+			<string>storage.type.object.array.zenscript</string>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>brackets</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.zenscript</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.other.zenscript</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.zenscript</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>variable.other.zenscript</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.zenscript</string>
+						</dict>
+						<key>6</key>
+						<dict>
+							<key>name</key>
+							<string>constant.numeric.zenscript</string>
+						</dict>
+						<key>7</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.zenscript</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>items and blocks</string>
+					<key>match</key>
+					<string>(&lt;)\b(.*?)(:(.*?(:(\*|\d+)?)?)?)(&gt;)</string>
+					<key>name</key>
+					<string>keyword.other.zenscript</string>
+				</dict>
+			</array>
+		</dict>
+		<key>class</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.zenscript</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.type.class.zenscript</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>class</string>
+			<key>match</key>
+			<string>(zenClass)\s+(\w+)</string>
+			<key>name</key>
+			<string>meta.class.zenscript</string>
+		</dict>
+		<key>class-constructor</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.zenscript</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>class constructor</string>
+			<key>match</key>
+			<string>\b(zenConstructor)\s*(?=\()</string>
+			<key>name</key>
+			<string>meta.class.zenscript</string>
+		</dict>
+		<key>code</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#class</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#class-constructor</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#functions</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#function-call</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#dots</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#quotes</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#brackets</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#preprocessors</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#comments</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#var</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#import</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#keywords</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#constants</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#operators</string>
+				</dict>
+			</array>
+		</dict>
+		<key>comments</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>inline comments</string>
+					<key>match</key>
+					<string>\s*((#|//).*$\n?)</string>
+					<key>name</key>
+					<string>comment.line.number-sign</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\/\*</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>comment.block</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>block comments</string>
+					<key>end</key>
+					<string>\*\/</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>comment.block</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>comment.block</string>
+				</dict>
+			</array>
+		</dict>
+		<key>constants</key>
+		<dict>
+			<key>comment</key>
+			<string>constants (true, false, null)</string>
+			<key>match</key>
+			<string>\b(true|false|null)\b</string>
+			<key>name</key>
+			<string>constant.language.zenscript</string>
+		</dict>
+		<key>dots</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.zenscript</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.zenscript</string>
+				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.zenscript</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>dots</string>
+			<key>match</key>
+			<string>\b(\w+)(\.)(\w+)((\.)(\w+))*</string>
+			<key>name</key>
+			<string>plain.text.zenscript</string>
+		</dict>
+		<key>function-call</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.zenscript</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>function calls</string>
+			<key>match</key>
+			<string>(?!function)([A-Za-z_$][\w$]*)\s*(?=\()</string>
+			<key>name</key>
+			<string>meta.function-call.zenscript</string>
+		</dict>
+		<key>functions</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.function.zenscript</string>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.zenscript</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>functions</string>
+			<key>match</key>
+			<string>function\s+([A-Za-z_$][\w$]*)\s*(?=\()</string>
+			<key>name</key>
+			<string>meta.function.zenscript</string>
+		</dict>
+		<key>import</key>
+		<dict>
+			<key>begin</key>
+			<string>\b(import)\b\s*</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.import.zenscript</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>package import</string>
+			<key>end</key>
+			<string>\s*(;)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.terminator.zenscript</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.import.zenscript</string>
+		</dict>
+		<key>keywords</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>control keywords</string>
+					<key>match</key>
+					<string>\b(in|has|void|as|version|for|return|while|break|instanceof)\b</string>
+					<key>name</key>
+					<string>keyword.control.zenscript</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>storage keywords</string>
+					<key>match</key>
+					<string>\b(any|bool|byte|short|int|long|float|double|string)\b</string>
+					<key>name</key>
+					<string>storage.type.zenscript</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>as holder keywords</string>
+					<key>match</key>
+					<string>\b(?&lt;=(as\s))[a-zA-Z]+\b</string>
+					<key>name</key>
+					<string>storage.type.zenscript</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>function keyword</string>
+					<key>match</key>
+					<string>\b(function)\b</string>
+					<key>name</key>
+					<string>storage.type.function.zenscript</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>statement keywords</string>
+					<key>match</key>
+					<string>\b(if|else)\b</string>
+					<key>name</key>
+					<string>keyword.control.conditional.zenscript</string>
+				</dict>
+			</array>
+		</dict>
+		<key>operators</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>math operators</string>
+					<key>match</key>
+					<string>(\.\.|\+=|\+|-=|-|\*=|\*|\/=|\/|%=|%|\|=|\||\|\||&amp;=|&amp;&amp;|&amp;|\^=|\^|\?|:|~=|~|;|&lt;=|&lt;|&gt;=|&gt;|==|=|!=|!|\$)</string>
+					<key>name</key>
+					<string>keyword.operator</string>
+				</dict>
+			</array>
+		</dict>
+		<key>preprocessors</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.zenscript</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.zenscript</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>variable.language.zenscript</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>^(\s*)(#)(debug|ignoreBracketErrors|norun|loader|priority|ikwid|profile|zslint|modloaded)</string>
+			<key>name</key>
+			<string>constant.numeric.zenscript</string>
+		</dict>
+		<key>quotes</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\"</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>double quote string</string>
+					<key>contentName</key>
+					<string>string.other.zenscript</string>
+					<key>end</key>
+					<string>\"</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.quoted.double.zenscript</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\'</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin</string>
+						</dict>
+					</dict>
+					<key>comment</key>
+					<string>single quote string</string>
+					<key>contentName</key>
+					<string>string.other.zenscript</string>
+					<key>end</key>
+					<string>\'</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.quoted.single.zenscript</string>
+				</dict>
+			</array>
+		</dict>
+		<key>var</key>
+		<dict>
+			<key>comment</key>
+			<string>var</string>
+			<key>match</key>
+			<string>\b(var|val|static|global)\b</string>
+			<key>name</key>
+			<string>storage.type</string>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>source.zenscript</string>
+</dict>
+</plist>
