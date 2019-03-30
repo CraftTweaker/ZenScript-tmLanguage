@@ -1,16 +1,14 @@
 {
-  "fileTypes": [
-    "zs"
-  ],
+  "fileTypes": ["zs"],
   "name": "ZenScript",
   "patterns": [
-    {
-      "include": "#code"
-    },
     {
       "comment": "numbers",
       "name": "constant.numeric.zenscript",
       "match": "\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)([LlFfUuDd]|UL|ul)?\\b"
+    },
+    {
+      "include": "#code"
     },
     {
       "comment": "arrays",
@@ -133,7 +131,11 @@
           "comment": "double quote string",
           "name": "string.quoted.double.zenscript",
           "contentName": "string.other.zenscript",
-          "begin": "\\\"","beginCaptures":{"0":{"name":"punctuation.definition.string.begin"}},"end":"\\\"",
+          "begin": "\\\"",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin" }
+          },
+          "end": "\\\"",
           "endCaptures": {
             "0": {
               "name": "punctuation.definition.string.end"
