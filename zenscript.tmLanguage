@@ -409,7 +409,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^(\s*)(#)(debug|ignoreBracketErrors|norun|loader|priority|ikwid|profile|zslint|modloaded)</string>
+			<string>^(\s*)(#)(debug|ignoreBracketErrors|norun|loader|priority|ikwid|profile|zslint|modloaded)\b</string>
 			<key>name</key>
 			<string>constant.numeric.zenscript</string>
 		</dict>

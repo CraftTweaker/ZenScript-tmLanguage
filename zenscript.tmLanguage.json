@@ -220,7 +220,7 @@
     },
     "preprocessors": {
       "name": "constant.numeric.zenscript",
-      "match": "^(\\s*)(#)(debug|ignoreBracketErrors|norun|loader|priority|ikwid|profile|zslint|modloaded)",
+      "match": "^(\\s*)(#)(debug|ignoreBracketErrors|norun|loader|priority|ikwid|profile|zslint|modloaded)\\b",
       "captures": {
         "1": {
           "name": "keyword.control.zenscript"
