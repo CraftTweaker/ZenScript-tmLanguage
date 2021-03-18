@@ -259,7 +259,7 @@
 					<key>comment</key>
 					<string>statement keywords</string>
 					<key>match</key>
-					<string>\b(get|implements|set|import|function|override|const|if|else|do|while|for|throw|panic|lock|try|catch|finally|return|break|continue|switch|case|default|in|is|as|match|throws|super|new)\b</string>
+					<string>\b(instanceof|get|implements|set|import|function|override|const|if|else|do|while|for|throw|panic|lock|try|catch|finally|return|break|continue|switch|case|default|in|is|as|match|throws|super|new)\b</string>
 					<key>name</key>
 					<string>keyword.control.zenscript</string>
 				</dict>
@@ -267,7 +267,7 @@
 					<key>comment</key>
 					<string>storage keywords</string>
 					<key>match</key>
-					<string>\b(alias|class|interface|enum|struct|expand|variant|set|void|bool|byte|sbyte|short|ushort|int|uint|long|ulong|usize|float|double|char|string)\b</string>
+					<string>\b(zenClass|zenConstructor|alias|class|interface|enum|struct|expand|variant|set|void|bool|byte|sbyte|short|ushort|int|uint|long|ulong|usize|float|double|char|string)\b</string>
 					<key>name</key>
 					<string>storage.type.zenscript</string>
 				</dict>

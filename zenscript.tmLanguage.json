@@ -205,12 +205,12 @@
         {
           "comment": "statement keywords",
           "name": "keyword.control.zenscript",
-          "match": "\\b(get|implements|set|import|function|override|const|if|else|do|while|for|throw|panic|lock|try|catch|finally|return|break|continue|switch|case|default|in|is|as|match|throws|super|new)\\b"
+          "match": "\\b(instanceof|get|implements|set|import|function|override|const|if|else|do|while|for|throw|panic|lock|try|catch|finally|return|break|continue|switch|case|default|in|is|as|match|throws|super|new)\\b"
         },
         {
           "comment": "storage keywords",
           "name": "storage.type.zenscript",
-          "match": "\\b(alias|class|interface|enum|struct|expand|variant|set|void|bool|byte|sbyte|short|ushort|int|uint|long|ulong|usize|float|double|char|string)\\b"
+          "match": "\\b(zenClass|zenConstructor|alias|class|interface|enum|struct|expand|variant|set|void|bool|byte|sbyte|short|ushort|int|uint|long|ulong|usize|float|double|char|string)\\b"
         },
         {
           "comment": "modifier keywords",
