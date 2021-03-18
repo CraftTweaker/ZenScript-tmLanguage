@@ -19,6 +19,14 @@
 			<string>constant.numeric.zenscript</string>
 		</dict>
 		<dict>
+			<key>comment</key>
+			<string>prefixedNumbers</string>
+			<key>match</key>
+			<string>\b\-?(0b|0x|0o|0B|0X|0O)(0|[1-9a-fA-F][0-9a-fA-F_]*)[a-zA-Z_]*\b</string>
+			<key>name</key>
+			<string>constant.numeric.zenscript</string>
+		</dict>
+		<dict>
 			<key>include</key>
 			<string>#code</string>
 		</dict>
@@ -107,23 +115,6 @@
 			<key>name</key>
 			<string>meta.class.zenscript</string>
 		</dict>
-		<key>class-constructor</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.function.zenscript</string>
-				</dict>
-			</dict>
-			<key>comment</key>
-			<string>class constructor</string>
-			<key>match</key>
-			<string>\b(zenConstructor)\s*(?=\()</string>
-			<key>name</key>
-			<string>meta.class.zenscript</string>
-		</dict>
 		<key>code</key>
 		<dict>
 			<key>patterns</key>
@@ -134,15 +125,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#class-constructor</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#functions</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#function-call</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -158,19 +141,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#preprocessors</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#comments</string>
 				</dict>
 				<dict>
 					<key>include</key>
 					<string>#var</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#import</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -194,9 +169,10 @@
 					<key>comment</key>
 					<string>inline comments</string>
 					<key>match</key>
-					<string>\s*((#|//).*$\n?)</string>
+					<string>//[^
+]*</string>
 					<key>name</key>
-					<string>comment.line.number-sign</string>
+					<string>comment.line.double=slash</string>
 				</dict>
 				<dict>
 					<key>begin</key>
@@ -226,15 +202,6 @@
 				</dict>
 			</array>
 		</dict>
-		<key>constants</key>
-		<dict>
-			<key>comment</key>
-			<string>constants (true, false, null)</string>
-			<key>match</key>
-			<string>\b(true|false|null)\b</string>
-			<key>name</key>
-			<string>constant.language.zenscript</string>
-		</dict>
 		<key>dots</key>
 		<dict>
 			<key>captures</key>
@@ -262,23 +229,6 @@
 			<key>name</key>
 			<string>plain.text.zenscript</string>
 		</dict>
-		<key>function-call</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.function.zenscript</string>
-				</dict>
-			</dict>
-			<key>comment</key>
-			<string>function calls</string>
-			<key>match</key>
-			<string>(?!function)([A-Za-z_$][\w$]*)\s*(?=\()</string>
-			<key>name</key>
-			<string>meta.function-call.zenscript</string>
-		</dict>
 		<key>functions</key>
 		<dict>
 			<key>captures</key>
@@ -301,42 +251,15 @@
 			<key>name</key>
 			<string>meta.function.zenscript</string>
 		</dict>
-		<key>import</key>
-		<dict>
-			<key>begin</key>
-			<string>\b(import)\b\s*</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.import.zenscript</string>
-				</dict>
-			</dict>
-			<key>comment</key>
-			<string>package import</string>
-			<key>end</key>
-			<string>\s*(;)</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.terminator.zenscript</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>meta.import.zenscript</string>
-		</dict>
 		<key>keywords</key>
 		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>comment</key>
-					<string>control keywords</string>
+					<string>statement keywords</string>
 					<key>match</key>
-					<string>\b(in|has|void|as|version|for|return|while|break|instanceof)\b</string>
+					<string>\b(get|implements|set|import|function|override|const|if|else|do|while|for|throw|panic|lock|try|catch|finally|return|break|continue|switch|case|default|in|is|as|match|throws|super|new)\b</string>
 					<key>name</key>
 					<string>keyword.control.zenscript</string>
 				</dict>
@@ -344,33 +267,33 @@
 					<key>comment</key>
 					<string>storage keywords</string>
 					<key>match</key>
-					<string>\b(any|bool|byte|short|int|long|float|double|string)\b</string>
+					<string>\b(alias|class|interface|enum|struct|expand|variant|set|void|bool|byte|sbyte|short|ushort|int|uint|long|ulong|usize|float|double|char|string)\b</string>
 					<key>name</key>
 					<string>storage.type.zenscript</string>
 				</dict>
 				<dict>
 					<key>comment</key>
-					<string>as holder keywords</string>
+					<string>modifier keywords</string>
 					<key>match</key>
-					<string>\b(?&lt;=(as\s))[a-zA-Z]+\b</string>
+					<string>\b(variant|abstract|final|private|public|export|internal|static|protected|implicit|virtual|extern|immutable)\b</string>
 					<key>name</key>
-					<string>storage.type.zenscript</string>
+					<string>storage.modifier.zenscript</string>
 				</dict>
 				<dict>
 					<key>comment</key>
-					<string>function keyword</string>
+					<string>annotation keywords</string>
 					<key>match</key>
-					<string>\b(function)\b</string>
+					<string>\b(Native|Precondition)\b</string>
 					<key>name</key>
-					<string>storage.type.function.zenscript</string>
+					<string>entity.other.attribute-name</string>
 				</dict>
 				<dict>
 					<key>comment</key>
-					<string>statement keywords</string>
+					<string>language keywords</string>
 					<key>match</key>
-					<string>\b(if|else)\b</string>
+					<string>\b(null|true|false)\b</string>
 					<key>name</key>
-					<string>keyword.control.conditional.zenscript</string>
+					<string>constant.language</string>
 				</dict>
 			</array>
 		</dict>
@@ -382,36 +305,19 @@
 					<key>comment</key>
 					<string>math operators</string>
 					<key>match</key>
-					<string>(\.\.|\+=|\+|-=|-|\*=|\*|\/=|\/|%=|%|\|=|\||\|\||&amp;=|&amp;&amp;|&amp;|\^=|\^|\?|:|~=|~|;|&lt;=|&lt;|&gt;=|&gt;|==|=|!=|!|\$)</string>
+					<string>\b(\.|\.\.|\.\.\.|,|\+|\+=|\+\+|-|-=|--|~|~=|\*|\*=|/|/=|%|%=|\||\|=|\|\||&amp;|&amp;=|&amp;&amp;|\^|\^=|\?|\?\.|\?\?|&lt;|&lt;=|&lt;&lt;|&lt;&lt;=|&gt;|&gt;=|&gt;&gt;|&gt;&gt;=|&gt;&gt;&gt;|&gt;&gt;&gt;=|=&gt;|=|==|===|!|!=|!==|\$|`)\b</string>
 					<key>name</key>
-					<string>keyword.operator</string>
+					<string>keyword.control</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>colons</string>
+					<key>match</key>
+					<string>\b(;|:)\b</string>
+					<key>name</key>
+					<string>keyword.control</string>
 				</dict>
 			</array>
-		</dict>
-		<key>preprocessors</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.zenscript</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.zenscript</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>variable.language.zenscript</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>^(\s*)(#)(debug|ignoreBracketErrors|norun|loader|priority|ikwid|profile|zslint|modloaded)\b</string>
-			<key>name</key>
-			<string>constant.numeric.zenscript</string>
 		</dict>
 		<key>quotes</key>
 		<dict>
@@ -480,7 +386,7 @@
 			<key>comment</key>
 			<string>var</string>
 			<key>match</key>
-			<string>\b(var|val|static|global)\b</string>
+			<string>\b(val|var)\b</string>
 			<key>name</key>
 			<string>storage.type</string>
 		</dict>
